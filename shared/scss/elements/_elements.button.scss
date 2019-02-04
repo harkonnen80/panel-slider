@@ -1,0 +1,14 @@
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="file"],
+button {
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: top;
+
+    &:focus {
+        outline: none;
+    }
+}

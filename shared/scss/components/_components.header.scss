@@ -1,0 +1,46 @@
+.c-header {
+    $class: c-header;
+
+    transition: background-color .15s ease-in-out;
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    border-bottom: $white 1px solid;
+    z-index: 10;
+
+    &--logo {
+
+    }
+
+        &--home-link {
+            width: 130px;
+            margin-right: 25%;
+            float: right;
+        }
+
+            &--site-title {
+                position: absolute;
+                visibility: hidden;
+            }
+
+    &--quick-links {
+
+    }
+
+    &.is-scrolled {
+        background-color: transparentize($color-2, .1);
+    }
+
+    @media (min-width: $m-bp) {
+        height: 80px;
+
+        &--home-link {
+            width: 152px;
+            transform: translate(0);
+            float: left;
+        }
+    }
+}

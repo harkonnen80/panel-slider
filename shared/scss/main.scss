@@ -1,0 +1,47 @@
+// Partials are hidden but will be commented back in when
+// they are added as the refactor goes on
+
+/*------------------------------------*\
+    Settings & Tools
+\*------------------------------------*/
+@import "settings.variables";
+@import "tools.functions";
+@import "tools.mixins";
+
+/*------------------------------------*\
+    Generic
+\*------------------------------------*/
+@import "generic.normalize";
+@import "generic.box-sizing";
+
+/*------------------------------------*\
+    Elements
+\*------------------------------------*/
+@import "elements/elements.fonts";
+@import "elements/elements.hr";
+@import "elements/elements.html-body";
+@import "elements/elements.button";
+@import "elements/elements.lists";
+@import "elements/elements.page";
+
+/*------------------------------------*\
+    Layout
+\*------------------------------------*/
+@import "layout.wrappers";
+@import "layout.grid-system";
+
+/*------------------------------------*\
+    Animations
+\*------------------------------------*/
+
+/*------------------------------------*\
+    Components
+\*------------------------------------*/
+@import "components/components.header";
+@import "components/components.main-nav";
+@import "components/components.panel-slider";
+
+/*------------------------------------*\
+    Utilities & Fallbacks
+\*------------------------------------*/
+@import "utilities.general";

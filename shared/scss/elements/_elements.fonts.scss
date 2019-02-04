@@ -1,0 +1,89 @@
+
+@mixin font-book {
+    font-family: $body-font;
+    font-weight: 300;
+}
+
+@mixin font-medium {
+    font-family: $body-font;
+    font-weight: 500;
+}
+
+@mixin font-heavy {
+    font-family: $body-font;
+    font-weight: 700;
+}
+
+@mixin font-extra-bold {
+    font-family: $body-font;
+    font-weight: 800;
+}
+
+// font utilities
+
+body {
+    -webkit-font-smoothing: antialiased;
+    color: $black;
+    @include font-medium;
+    @include main-body-text;
+}
+
+p {
+    margin: 0 0 $space-s;
+}
+
+a {
+    transition: color 0.2s ease-in-out;
+    cursor: pointer;
+    @include font-heavy;
+    color: $color-1;
+
+    &:hover,
+    &:focus,
+    &:active {
+        outline: none;
+        color: $color-1;
+    }
+}
+
+// title elements and classes
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    margin-bottom: $space-s;
+}
+
+.u-title {
+    color: $color-1;
+    @include title-text;
+}
+
+.u-subtitle {
+    @include subtitle-text;
+}
+
+.u-section-title {
+    @include section-title-text;
+}
+
+.u-tabs-section-title {
+    @include section-title-secondary;
+}
+
+.u-section-subtitle {
+    @include section-title-secondary;
+    padding-bottom: $space-xxs;
+    border-bottom: 1px solid $color-grey-mid;
+}
+
+.u-section-intro {
+    @include section-intro-text;
+}
+
+.u-label {
+    @include list-item-title;
+}

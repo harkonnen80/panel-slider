@@ -1,0 +1,166 @@
+//Variables are commented in as they are implemented
+
+/*------------------------------------*\
+    Font variables
+\*------------------------------------*/
+$base-font-size:    16px;
+$base-line-height:  1.5;
+
+$body-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// Icon Variables (most used)
+$icon-arrow-down: '\e801';
+$icon-arrow-left: '\e803';
+$icon-arrow-right: '\e804';
+$icon-location: '\e800';
+$icon-phone: '\e805';
+$icon-mail: '\e806';
+$icon-facebook: '\e809';
+$icon-twitter: '\e80a';
+
+//Icons object used to generate utility classes
+$icons:
+icon-arrow-down '\e801',
+icon-arrow-left '\e803',
+icon-arrow-right '\e804',
+icon-location '\e800',
+icon-phone '\e805',
+icon-mail '\e806'
+icon-facebook '\e809',
+icon-twitter '\e80a';
+
+
+/*------------------------------------*\
+    Spacing variables
+\*------------------------------------*/
+$space-xxs: 8px;
+$space-xs: 12px;
+$space-s: 16px;
+$space-m: 20px;
+$space-l: 24px;
+$space-xl: 28px;
+$space-xxl: 36px;
+$space-xxxl: 48px;
+$space-xxxxl: 60px;
+
+// same vars as above - for utility output
+$spacing:
+  0 0px,
+  xxs 8px,
+  xs 12px,
+  s 16px,
+  m 20px,
+  l 24px,
+  xl 28px,
+  xxl 36px,
+  xxxl 48px,
+  xxxxl 60px;
+
+// currently used in some mixins and components
+$base-spacing-unit: $space-s;
+
+/*------------------------------------*\
+    Color palette
+\*------------------------------------*/
+// $color-1-light:  lighten($color-1, 39.5%); //orange
+
+//Default colors
+$color-1: #f7971c;
+$color-1-dark: darken($color-1, 30);
+$color-2: #005a9c;
+$color-3: #6d6e71;
+$color-4: #aeaeb0;
+
+$white: #FFFFFF;
+$black: #000000;
+
+
+// greys
+// $color-grey-xxdark: #52595E;
+// $color-grey-xdark: #58646E;
+$color-grey-xdark: #4d4d4d;
+$color-grey-dark: #afafaf;
+// $color-grey-darkmid: #D1D5D9;
+$color-grey-mid: #d1d3d4;
+// $color-grey-lightmid: #D8DDE2;
+// $color-grey-light-light: #f1f1f1;
+$color-grey-light: #ebebeb;
+$color-grey-xlight: #f1f1f1;
+$color-grey-xxlight: #f6f6f6;
+$color-grey-xxxlight: #fbfcfc;
+
+/*------------------------------------*\
+    z-index table
+\*------------------------------------*/
+/* 1 */  $z-base: 1;
+/* 5 */  $z-progress: 5;
+/* 10 */ $z-tooltip: 10;
+/* 20 */
+/* 30 */ $z-menu: 30; $z-modal: 30;
+/* 40 */ $z-header: 40;
+/* 50 */
+/* 60 */
+/* 70 */
+/* 80 */ $z-alert: 80;
+/* 90 */ $z-overlay: 90;
+/* 100 */
+
+
+/*------------------------------------*\
+    reusuable style variables
+\*------------------------------------*/
+// $border-grey: 1px solid #d1d3d4;
+$box-shadow-grey: inset 0 0 0 1px #d1d3d4;
+$border-grey: 2px solid #d1d3d4;
+$border-grey-tab: #e8e8e8;
+
+$base-radius: 6px;
+
+
+/*------------------------------------*\
+    Media query variables
+\*------------------------------------*/
+$xs_bp: 540px;
+$s_bp: 800px;
+$m_bp: 980px;
+$l_bp: 1080px;
+$xl_bp: 1200px;
+$xxl_bp: 1440px;
+
+// same as above - used in mixins as object
+$breakpoints:
+    xs 540px,
+    s 800px,
+    m 980px,
+    l 1080px,
+    xl 1200px,
+    xxl 1440px;
+
+//Page Scroll Height break points
+$ps-s-h-bp: 450px;
+$ps-m-h-bp: 850px;
+
+//Shared media query variables
+// $header-layout-change: 720px;
+
+
+/*------------------------------------*\
+    component variables
+\*------------------------------------*/
+// these variables are shared across several components.
+// if they were only relative to one component, they should be kept in the scope of that component
+
+// header height variables - used both in the header component and the body top padding
+$header-height-mobile: 60px;
+$header-height-desktop: 80px;
+
+$bottom-nav-height: 500px;
+
+// button block heights - standard fixed height for certain types of buttons/components
+$button-block-height-mobile: 64px;
+$button-block-height-desktop: 76px;
+
+// viewport height variables - fills the viewport height taking headers etc. into account
+$viewport-height-mobile: calc(100vh - #{$header-height-mobile} - #{$bottom-nav-height});
+$viewport-height-desktop: calc(100vh - #{$header-height-desktop});
+

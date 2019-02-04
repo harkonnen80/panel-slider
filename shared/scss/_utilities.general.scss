@@ -1,0 +1,795 @@
+
+/*------------------------------------*\
+    Display Utilities
+\*------------------------------------*/
+
+.u-display-none {
+    display: none;
+}
+
+@include responsiveClasses(u-display-none, display, none);
+
+.u-display-block {
+    display: block;
+}
+
+@include responsiveClasses(u-display-block, display, block);
+
+.u-display-inline {
+    display: inline;
+}
+
+.u-display-inline-block {
+    display: inline-block;
+}
+
+.u-opacity-50 {
+    opacity: 0.5;
+}
+
+/* -- table ------------------------- */
+
+.u-display-table {
+    display: table;
+}
+
+.u-display-table-row {
+    display: table-row;
+}
+
+.u-display-table-cell {
+    padding-right: $space-xxs;
+    display: table-cell;
+}
+
+/* -- Flex -------------------------- */
+
+.u-display-flex {
+    display: flex;
+}
+
+@include responsiveClasses(u-display-flex, display, flex);
+
+
+.u-align-items-center {
+    align-items: center;
+}
+
+.u-align-items-stretch {
+    align-items: stretch;
+}
+
+.u-justify-content-center {
+    justify-content: center;
+}
+
+.u-justify-content-space-around {
+    justify-content: space-around;
+}
+
+.u-justify-content-space-between {
+    justify-content: space-between;
+}
+
+.u-flex-basis-auto {
+    flex-basis: auto;
+}
+
+.u-flex-basis-100 {
+    flex-basis: 100%;
+}
+
+/* -- Responsive -------------------- */
+
+.u-display-until-xs {
+    @media (min-width:$xs_bp) {
+        display: none !important;
+    }
+}
+
+.u-display-until-s {
+    @media (min-width:$s_bp) {
+        display: none !important;
+    }
+}
+
+.u-display-until-m {
+    @media (min-width:$m_bp) {
+        display: none !important;
+    }
+}
+
+.u-display-until-l {
+    @media (min-width:$l_bp) {
+        display: none !important;
+    }
+}
+
+.u-display-until-xl {
+    @media (min-width:$xl_bp) {
+        display: none !important;
+    }
+}
+
+.u-display-until-xxl {
+    @media (min-width:$xxl_bp) {
+        display: none !important;
+    }
+}
+
+
+.u-display-after-xs {
+    display: none !important;
+
+    @media (min-width:$xs_bp) {
+        display: block !important;
+    }
+}
+
+.u-display-after-s {
+    display: none !important;
+
+    @media (min-width:$s_bp) {
+        display: block !important;
+    }
+}
+
+.u-display-after-m {
+    display: none !important;
+
+    @media (min-width:$m_bp) {
+        display: block !important;
+    }
+}
+
+.u-display-after-l {
+    display: none !important;
+
+    @media (min-width:$l_bp) {
+        display: block !important;
+    }
+}
+
+.u-display-after-xl {
+    display: none !important;
+
+    @media (min-width:$xl_bp) {
+        display: block !important;
+    }
+}
+
+.u-display-after-xxl {
+    display: none !important;
+
+    @media (min-width:$xxl_bp) {
+        display: block !important;
+    }
+}
+
+/* -- Widths ------------------------ */
+
+.u-max-width-xs {
+    max-width: $xs_bp;
+}
+
+/*------------------------------------*\
+    Typography Utilities
+\*------------------------------------*/
+
+.u-line-height-1 {
+    line-height: 1;
+}
+
+/* -- Font Transform ---------------- */
+
+.u-text-transform-none {
+    text-transform: none !important;
+}
+
+.u-text-transform-uppercase {
+    text-transform: uppercase;
+}
+
+.u-text-transform-capitalize {
+    text-transform: capitalize;
+}
+
+.u-text-transform-lowercase {
+    text-transform: lowercase;
+}
+
+.u-text-transform-none {
+    text-transform: none !important;
+}
+
+.u-first-letter-uppercase:first-letter {
+    text-transform: uppercase;
+}
+
+.u-text-decoration-underline {
+    text-decoration: underline;
+}
+
+/* -- Font White Space -------------- */
+
+.u-no-wrap {
+    white-space: nowrap;
+}
+
+.u-word-wrap {
+    @include word-wrap();
+}
+
+/* -- Custom ------------------------ */
+
+.u-u-in-copy {
+    @include font-heavy();
+    font-style: italic;
+}
+
+/* -- Font Alignment ---------------- */
+
+.u-text-align-left {
+    text-align: left !important;
+}
+
+.u-children-text-align-left {
+    h1, h2, h3, h4, h5, h6, p, a {
+        text-align: left;
+    }
+}
+
+.u-text-align-right {
+    text-align: right !important;
+}
+
+.u-text-align-center {
+    text-align: center !important;
+}
+
+/* -- Responsive Alignment ----------- */
+
+@include responsiveClasses(u-text-align-left, text-align, left);
+
+.u-children-text-align-left-m {
+    @media (min-width: $m_bp) {
+        text-align: left;
+
+        h1, h2, h3, h4, h5, h6, p, a {
+            text-align: left;
+        }
+    }
+}
+
+/* -- Font Weights ------------------ */
+
+.u-font-book {
+    @include font-book();
+}
+
+.u-font-medium {
+    @include font-medium();
+}
+
+.u-font-heavy {
+    @include font-heavy();
+}
+
+.u-font-extra-bold {
+    @include font-extra-bold();
+}
+
+/* -- Font Sizes ------------------ */
+
+.u-font-size-11 {
+    font-size: 11px;
+}
+
+.u-font-size-28 {
+    font-size: 28px;
+}
+
+/*------------------------------------*\
+    Spacing Utilities
+\*------------------------------------*/
+
+/* -- Padding ----------------------- */
+
+@each $space in $spacing {
+    $key: nth($space, 1);
+    $value: nth($space, 2);
+
+  .u-padding-#{$key} {
+    padding: $value !important;
+  }
+  .u-padding-left-right-#{$key} {
+    padding-left: $value !important;
+    padding-right: $value !important;
+  }
+  .u-padding-top-bottom-#{$key} {
+    padding-top: $value !important;
+    padding-bottom: $value !important;
+  }
+  .u-padding-top-#{$key} {
+    padding-top: $value !important;
+  }
+  .u-padding-right-#{$key} {
+    padding-right: $value !important;
+  }
+  .u-padding-bottom-#{$key} {
+    padding-bottom: $value !important;
+  }
+  .u-padding-left-#{$key} {
+    padding-left: $value !important;
+  }
+}
+
+.u-padding-right-55 {
+    padding-right: 55px !important;
+}
+
+/* -- Margin ------------------------ */
+
+@each $space in $spacing {
+  $key: nth($space, 1);
+  $value: nth($space, 2);
+
+  .u-margin-#{$key} {
+    margin: $value !important;
+  }
+  .u-margin-left-right-#{$key} {
+    margin-left: $value !important;
+    margin-right: $value !important;
+  }
+  .u-margin-top-bottom-#{$key} {
+    margin-top: $value !important;
+    margin-bottom: $value !important;
+  }
+  .u-margin-top-#{$key} {
+    margin-top: $value !important;
+  }
+  .u-margin-right-#{$key} {
+    margin-right: $value !important;
+  }
+  .u-margin-bottom-#{$key} {
+    margin-bottom: $value !important;
+  }
+  .u-margin-left-#{$key} {
+    margin-left: $value !important;
+  }
+}
+
+.u-margin-left-right-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.u-margin-left-auto {
+    margin-left: auto !important;
+}
+
+.u-margin-bottom-minus-66 {
+    margin-bottom: -66px !important;
+}
+
+.u-margin-bottom-16 {
+    margin-bottom: 16px !important;
+}
+
+.u-margin-bottom-200 {
+    margin-bottom: 200px !important;
+}
+
+.u-padding-left-70-l {
+    @media (min-width: $l_bp) {
+        padding-left: 70px !important;
+    }
+}
+
+.u-last-child-margin-bottom-0 {
+    *:last-child {
+        margin-bottom: 0 !important;
+    }
+}
+
+
+/*------------------------------------*\
+    Element Utilities
+\*------------------------------------*/
+
+.u-overflow-auto {
+    overflow: auto;
+}
+
+.u-overflow-hidden {
+    overflow: hidden;
+}
+
+.u-overflow-visible {
+    overflow: visible;
+}
+
+/* -- Floats ------------------------ */
+
+.u-float-right {
+    float: right !important;
+}
+
+@include responsiveClasses(u-float-right, float, right);
+
+.u-float-left {
+    float: left !important;
+}
+
+@include responsiveClasses(u-float-left, float, left);
+
+.u-float-clear {
+    clear: both;
+}
+
+.u-clear-both {
+    clear: both;
+}
+
+.u-clear-left {
+    clear: left !important;
+}
+
+.u-float-none {
+    float: none !important;
+}
+
+/* -- Cursors ----------------------- */
+
+.u-cursor-pointer {
+    cursor: pointer !important;
+}
+
+.u-cursor-progress {
+    cursor: progress !important;
+}
+
+/* -- Position ---------------------- */
+
+.u-position-relative {
+    position: relative !important;
+}
+
+.u-position-absolute {
+    position: absolute !important;
+}
+
+.u-left-0 {
+    left: 0;
+}
+
+.u-top-0 {
+    top: 0;
+}
+
+/* -- Standard Styled Elements ------ */
+
+.u-ellipsis {
+    @include ellipsis();
+}
+
+.u-white-box {
+    @include boxes();
+}
+
+.u-clearfix {
+    @include clearfix;
+}
+
+/* -- Hidden Elements --------------- */
+
+.u-expand-height-from-zero {
+    overflow: hidden;
+    height: 0;
+    transition: height 0.3s ease-in-out;
+}
+
+/* for accessibility purposes */
+.u-visually-hidden {
+    @include visually-hidden;
+}
+
+.u-visibility-hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    transition-property: visibility, opacity;
+}
+
+.u-visibility-hidden-until-load {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    transition-property: visibility, opacity;
+}
+
+.u-autofill-fix-hide-input {
+  opacity: 0; width: 0px; height: 0px; position: absolute; top:-9999px; left:-9999px;
+}
+
+/* -- Images -------------------------- */
+
+.u-image-reset {
+    @include image-reset();
+}
+
+/* -- borders ------------------------- */
+
+.u-border-fix {
+    border: 1px solid transparent; // Fixes margins not being contained by parent
+}
+
+.u-border-color-grey-mid {
+    border: 1px solid $color-grey-mid;
+}
+
+/* -- Z-Index ------------------------- */
+
+@for $i from 1 through 10 {
+    .u-z-index-#{$i}0 {
+        z-index: #{$i}0;
+    }
+}
+
+/* -- Footer alterations -------------- */
+
+.u-no-fredericks-logo .fredericksFoundation {
+    display: none !important;
+}
+
+/*--------------------------------------*\
+    Sizing Utilities
+\*--------------------------------------*/
+
+.u-max-width-none {
+    max-width: none !important;
+}
+
+.u-max-width-100 {
+    max-width: 100% !important;
+}
+
+.u-height-auto {
+  height:auto !important;
+}
+
+.u-width-auto {
+  width:auto !important;
+}
+
+.u-width-100 {
+    width: 100% !important;
+}
+.u-max-height-100-on-mobile {
+    @media (max-width: 600px ) {
+        max-height:100px;
+    }
+}
+
+.u-max-width-540 {
+    max-width: 540px;
+}
+
+.u-max-width-800 {
+    max-width: 800px;
+}
+
+.u-height-100 {
+    height: 100% !important;
+}
+
+/*------------------------------------*\
+    Icons Utilities
+\*------------------------------------*/
+
+@each $icon in $icons {
+    $key: nth($icon, 1);
+    $value: nth($icon, 2);
+
+    // for old use of u-icon-[name]
+    .u-#{$key} {
+        &:before {
+            content: $value;
+            @include icons-font;
+            display: inline-block;
+        }
+    }
+    .u-before-#{$key} {
+        &:before {
+            content: $value;
+            @include icons-font;
+            display: inline-block;
+        }
+    }
+    .u-after-#{$key} {
+        &:after {
+            content: $value;
+            @include icons-font;
+            display: inline-block;
+        }
+    }
+}
+
+/*------------------------------------*\
+    Color utilities
+\*------------------------------------*/
+
+.u-color-1 {
+    color: $color-1
+}
+
+.u-color-1-bg {
+    background-color: $color-1 !important;
+}
+
+.u-color-1-dark {
+    color: $color-1-dark;
+}
+
+.u-color-2 {
+    color: $color-2
+}
+
+.u-color-2-bg {
+    background-color: $color-2
+}
+
+.u-color-3 {
+    color: $color-3
+}
+
+.u-color-3-bg {
+    background-color: $color-3
+}
+
+
+.u-color-4 {
+    color: $color-4
+}
+
+.u-color-4-bg {
+    background-color: $color-4
+}
+
+.u-color-black {
+    color: $black !important;
+}
+
+.u-color-black-bg {
+    background-color: $black
+}
+
+.u-color-white {
+    color: $white
+}
+
+.u-color-white-bg {
+    background-color: $white !important;
+}
+
+/*------------------------------------*\
+    Animation Styles
+\*------------------------------------*/
+
+/*----------- constant animations -------------*/
+
+.u-animate-const-rotate {
+    @include animate-const-rotate;
+}
+
+.u-animate-const-rotate-before:before {
+    @include animate-const-rotate;
+}
+
+.u-animate-const-rotate-after:after {
+    @include animate-const-rotate;
+}
+
+.u-animate-const-pulse {
+    @include animate-pulse;
+}
+
+/*----------- triggered animations -------------*/
+
+$fadeTime: .5s;
+$slideInTime: .65s;
+$spinTime: .85s;
+
+.u-animate-slide-holder {
+    overflow: hidden;
+}
+
+.u-animate-spin-holder {
+    perspective: 0;
+}
+
+.u-animate-slide-ltr {
+    transition: transform $slideInTime ease-in-out;
+    transform: translate(calc(-100% - 1px));
+
+    &.is-animated {
+        transform: translate(0);
+    }
+}
+
+.u-animate-slide-rtl {
+    transition: transform $slideInTime ease-in-out;
+    transform: translate(calc(100% + 1px));
+
+    &.is-animated {
+        transform: translate(0);
+    }
+}
+
+.u-animate-fade-in {
+    transition: opacity $fadeTime ease-in-out;
+    opacity: 0;
+
+    &.is-animated {
+        opacity: 1;
+    }
+
+}
+
+.u-animate-spin {
+    transition: {
+        property: transform;
+        duration: $spinTime + 0.5;
+        timing-function: cubic-bezier(.86, .28, .18, 2);
+    };
+    transform: rotateY(90deg);
+    perspective: 800px;
+
+    &.is-animated {
+        transform: rotateY(0deg);
+    }
+
+}
+
+.u-animate-present-bottom {
+    transition: {
+        property: transform;
+        duration: $spinTime - 0.3;
+        timing-function: cubic-bezier(1, .02, .66, .97);
+    }
+    transform: rotateX(-90deg);
+    transform-origin: 100% 100%;
+    perspective: 800px;
+
+    &.is-animated {
+        transform: rotateY(0deg);
+    }
+}
+
+.u-animate-blur {
+    transition: filter .25s ease-in-out;
+    filter: blur(0);
+
+    &.is-animated {
+        filter: blur(20px);
+    }
+}
+
+/*------------------------------------*\
+    IE specific css
+\*------------------------------------*/
+
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    .u-color-white-bg-ie {
+        background-color: $white !important;
+    }
+}
+
+/*------------------------------------*\
+    IE specific css
+\*------------------------------------*/
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    .u-color-white-bg-ie {
+        background-color: $white;
+    }
+}

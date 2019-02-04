@@ -1,0 +1,30 @@
+{
+  "name": "panel-slider",
+  "version": "1.0.0",
+  "description": "A simple OOP panel slider",
+  "main": "index.js",
+  "dependencies": {
+    "gulp-cli": "^2.0.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "^6.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "node-sass": "^4.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harkonnen80/panel-slider.git"
+  },
+  "author": "David Neil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harkonnen80/panel-slider/issues"
+  },
+  "homepage": "https://github.com/harkonnen80/panel-slider#readme"
+}

@@ -1,0 +1,456 @@
+.c-sliding-panels {
+    $class: 'c-sliding-panels';
+    $mobile-progress-bar-width: 30px;
+
+    position: relative;
+
+    &__content {
+        @include content-width;
+    }
+
+    &__nav {
+        /* TODO: RFC remove after forms are refactored */
+        max-width: 100% !important;
+        padding: 0 !important;
+        /* END */
+
+        margin: 0 0 $space-s !important;
+        text-align: center;
+
+        .is-active {
+            background-color: $color-1;
+        }
+    }
+
+    &__panels-holder {
+        width: 100%;
+        height: 0;
+        padding: 0 !important;
+        position: relative;
+        overflow: hidden;
+        transition: height .35s ease-in-out;
+    }
+
+    &__panels-tray {
+        @include clearfix;
+
+        transition: {
+            property: transform;
+            timing-function: ease-in-out;
+        }
+
+        &.no-transition {
+            transition: none;
+
+            .#{$class}__body,
+            .#{$class}__nav-item,
+            .#{$class}__nav-item::before {
+                transition: none;
+            }
+        }
+    }
+
+    &__panel {
+        padding-bottom: $space-xs;
+        float: left;
+    }
+
+    &__title {
+        @extend .u-heading-secondary;
+        @extend .u-heading-secondary--h2;
+        margin: 0.8em 0;
+    }
+
+    &__body {
+        display: none;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.2s ease-in-out;
+    }
+
+    &--progress {
+        text-align: left;
+
+        .#{$class}__panels-holder {
+            float: right;
+            height: auto;
+            width: calc(100% - #{$mobile-progress-bar-width});
+        }
+            .#{$class}__panel {
+                width: 100%;
+                padding: 0;
+
+                &.is-filled {
+                    color: $color-2;
+                    cursor: pointer;
+                }
+            }
+
+        .#{$class}__nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: $mobile-progress-bar-width;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+            .#{$class}__nav-item {
+                position: relative;
+                height: 33.33%;
+                width: 1px;
+                margin: 0;
+                padding: 0;
+                flex-grow: 1;
+                flex-shrink: 1;
+                background-color: $color-grey-xlight;
+                font-size: 0;
+                transition: height 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+                &::before {
+                    content: '';
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 100%;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: $z-progress;
+                    background-color: $black;
+                    transition: background-color 0.4s ease-out;
+                }
+
+                &.is-active {
+                    background-color: $color-1;
+                    flex-grow: 0;
+                    flex-shrink: 0;
+
+                    &::before {
+                        background-color: $color-1;
+                    }
+                }
+
+                &.is-disabled {
+                    &::before {
+                        background-color: $color-grey-xlight;
+                    }
+                }
+            }
+
+        .#{$class}__title {
+            text-align: left;
+        }
+    }
+    @media (min-width: $m_bp) {
+        &__title {
+            display: none;
+        }
+
+        &__body {
+            display: block;
+            height: auto;
+        }
+
+        &--progress {
+            .#{$class}__panels-holder {
+                float: none;
+                height: 0;
+                width: 100%;
+            }
+                .#{$class}__panel {
+                    padding-bottom: $space-xs;
+                }
+
+            .#{$class}__nav {
+                flex-direction: row;
+                position: relative;
+                width: auto;
+                height: auto;
+            }
+
+                .#{$class}__nav-item {
+                    height: 1px;
+                    width: 100%;
+                    max-width: none;
+                    flex-grow: initial;
+                    flex-shrink: initial;
+
+                    &::before {
+                        background-color: $color-grey-xlight;
+                    }
+
+                    &.is-active {
+                        height: 2px;
+                        flex-grow: initial;
+                        flex-shrink: initial;
+
+                        &::before {
+                            width: 11px;
+                            height: 11px;
+                        }
+                    }
+                }
+        }
+    }
+}
+
+/*doc
+---
+title: Sliding Panels
+name: sliding-panels
+category: Components
+---
+
+```html_example
+
+<section class="c-sliding-panels">
+
+    <div class="c-sliding-panels__content" data-controls="careers">
+
+        <p>
+
+            <a href="#" class="c-text-link c-text-link--color-1 js-slide-to-panel" data-slide-to-panel="1">Panel 1</a>
+
+            <a href="#" class="c-text-link c-text-link--color-1 js-slide-to-panel" data-slide-to-panel="2">Panel 2</a>
+
+            <a href="#" class="c-text-link c-text-link--color-1 js-slide-to-panel" data-slide-to-panel="3">Panel 3</a>
+
+        </p>
+
+        <div class="c-sliding-panels__nav">
+
+            <button class="c-btn c-btn--black c-btn--margin-bottom-s c-btn--margin-right-s js-slide-to-panel" data-slide-to-panel="previous">Previous</button>
+
+            <button class="c-btn c-btn--black c-btn--margin-bottom-s c-btn--margin-right-s js-slide-to-panel" data-slide-to-panel="1">Panel 1</button>
+
+            <button class="c-btn c-btn--black c-btn--margin-bottom-s c-btn--margin-right-s js-slide-to-panel" data-slide-to-panel="2">Panel 2</button>
+
+            <button class="c-btn c-btn--black c-btn--margin-bottom-s c-btn--margin-right-s js-slide-to-panel" data-slide-to-panel="3">Panel 3</button>
+
+            <button class="c-btn c-btn--black c-btn--margin-bottom-s c-btn--margin-right-s js-slide-to-panel" data-slide-to-panel="next">Next</button>
+
+        </div>
+
+    </div>
+
+    <h1>First Panel Set</h1>
+
+    <div class="c-sliding-panels__panels-holder u-reset-section-div js-sliding-panels" data-nav="careers">
+
+        <div class="c-sliding-panels__panels-tray js-sliding-panels-tray">
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="1">
+
+                <div class="c-sliding-panels__content">
+
+                    <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Donec rutrum congue leo eget malesuada. Nulla quis lorem ut libero malesuada feugiat. Sed porttitor lectus nibh.</p>
+
+                    <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Curabitur aliquet quam id dui posuere blandit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
+
+                    <p>Cras ultricies ligula sed magna dictum porta. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Donec sollicitudin molestie malesuada. Proin eget tortor risus.</p>
+
+                </div>
+
+            </div>
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="2">
+
+                <div class="c-sliding-panels__content">
+
+                    <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Cras ultricies ligula sed magna dictum porta.</p>
+
+                    <p>Proin eget tortor risus. Vivamus suscipit tortor eget felis porttitor volutpat. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.</p>
+
+                </div>
+
+            </div>
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="3">
+
+                <div class="c-sliding-panels__content">
+
+                    <p>Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
+
+                    <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquet quam id dui posuere blandit. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.</p>
+
+                    <p>Donec rutrum congue leo eget malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <h1>Second Panel Set</h1>
+
+    <div class="c-sliding-panels__panels-holder u-color-grey-light-bg u-reset-section-div js-sliding-panels" data-nav="careers">
+
+        <div class="c-sliding-panels__panels-tray js-sliding-panels-tray">
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="1">
+
+                <div class="c-sliding-panels__content">
+
+                    <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Donec rutrum congue leo eget malesuada. Nulla quis lorem ut libero malesuada feugiat. Sed porttitor lectus nibh.</p>
+
+                    <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Curabitur aliquet quam id dui posuere blandit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
+
+                    <p>Cras ultricies ligula sed magna dictum porta. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Donec sollicitudin molestie malesuada. Proin eget tortor risus.</p>
+
+                </div>
+
+            </div>
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="2">
+
+                <div class="c-sliding-panels__content">
+
+                    <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Cras ultricies ligula sed magna dictum porta.</p>
+
+                    <p>Proin eget tortor risus. Vivamus suscipit tortor eget felis porttitor volutpat. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.</p>
+
+                </div>
+
+            </div>
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="3">
+
+                <div class="c-sliding-panels__content">
+
+                    <p>Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
+
+                    <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquet quam id dui posuere blandit. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.</p>
+
+                    <p>Donec rutrum congue leo eget malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+```
+*/
+
+/*doc
+---
+title: Sliding Panels Progress
+name: sliding-panels-progress
+category: Components
+---
+
+```html_example
+
+<section class="c-sliding-panels c-sliding-panels--progress js-sliding-panels-progress-wrapper">
+
+    <div class="c-sliding-panels__panels-holder u-reset-section-div js-sliding-panels js-sliding-panels-progress" data-nav="progress">
+
+        <div class="c-sliding-panels__panels-tray js-sliding-panels-tray">
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="4">
+
+                <div class="c-sliding-panels__content">
+                    <h2 class="c-sliding-panels__title">Source of Income</h2>
+
+                    <div class="c-sliding-panels__body js-sliding-panel-body">
+
+                        <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Donec rutrum congue leo eget malesuada. Nulla quis lorem ut libero malesuada feugiat. Sed porttitor lectus nibh.</p>
+
+                        <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Curabitur aliquet quam id dui posuere blandit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                        <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
+
+                        <p>Cras ultricies ligula sed magna dictum porta. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Donec sollicitudin molestie malesuada. Proin eget tortor risus.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="5">
+
+                <div class="c-sliding-panels__content">
+                    <h2 class="c-sliding-panels__title">Company Information</h2>
+
+                    <div class="c-sliding-panels__body js-sliding-panel-body">
+
+                        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Cras ultricies ligula sed magna dictum porta.</p>
+
+                        <p>Proin eget tortor risus. Vivamus suscipit tortor eget felis porttitor volutpat. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.</p>
+
+                        <p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla quis lorem ut libero malesuada feugiat. Donec rutrum congue leo eget malesuada. Nulla quis lorem ut libero malesuada feugiat. Sed porttitor lectus nibh.</p>
+
+                        <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Curabitur aliquet quam id dui posuere blandit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                        <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
+
+                        <p>Cras ultricies ligula sed magna dictum porta. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Donec sollicitudin molestie malesuada. Proin eget tortor risus.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="c-sliding-panels__panel js-sliding-panel" data-panel="6">
+
+                <div class="c-sliding-panels__content">
+                    <h2 class="c-sliding-panels__title">Salary Information</h2>
+
+                    <div class="c-sliding-panels__body js-sliding-panel-body">
+
+                        <p>Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Pellentesque in ipsum id orci porta dapibus. Cras ultricies ligula sed magna dictum porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula.</p>
+
+                        <p>Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur aliquet quam id dui posuere blandit. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Nulla quis lorem ut libero malesuada feugiat.</p>
+
+                        <p>Donec rutrum congue leo eget malesuada. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="c-sliding-panels__content" data-controls="progress">
+        <button class="c-btn c-btn--2 c-btn--full-width u-display-after-m js-slide-to-panel u-margin-bottom-l" data-slide-to-panel="next">Next</button>
+
+        <div class="c-sliding-panels__nav js-slide-nav">
+
+            <button class="c-sliding-panels__nav-item js-slide-to-panel" data-slide-to-panel="4">Panel 1</button>
+
+            <button class="c-sliding-panels__nav-item js-slide-to-panel" data-slide-to-panel="5">Panel 2</button>
+
+            <button class="c-sliding-panels__nav-item js-slide-to-panel" data-slide-to-panel="6">Panel 3</button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div class="c-sliding-panels__content u-display-until-m u-margin-top-m" data-controls="progress">
+    <button class="c-btn c-btn--2 c-btn--full-width js-slide-to-panel" data-slide-to-panel="next">Next</button>
+</div>
+```
+*/

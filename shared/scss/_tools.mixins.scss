@@ -1,0 +1,523 @@
+//Font size mixin to
+@mixin font-size($font-size, $line-height: auto) {
+    font-size: $font-size;
+
+    @if $line-height==auto {
+        line-height: $base-line-height;
+    }
+    @else {
+        @if (type-of($line-height)==number or $line-height==inherit or $line-height==normal) {
+            line-height: $line-height;
+        }
+        @elseif ($line-height !=none and $line-height !=false) {
+            @warn "Error! ‘#{$line-height}’ is not a valid value for `line-height`."
+        }
+    }
+}
+
+
+/* dont use placeholder as a label replacement */
+
+@mixin placeholder() {
+    ::-webkit-input-placeholder {
+        /* WebKit, Blink, Edge */
+        @content
+    }
+    :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+        @content
+    }
+    ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+        @content
+    }
+    :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        @content
+    }
+    :placeholder-shown {
+        /* Standard (https://drafts.csswg.org/selectors-4/#placeholder) */
+        @content;
+    }
+}
+
+@mixin clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin vertical-align($alignment: middle) {
+    &:before,
+    &:after {
+        vertical-align: $alignment;
+        content: "";
+        display: inline-block;
+        width: 0;
+        height: 100%;
+    }
+    /* Child element to be inline-block & vertical-aligned as above */
+}
+
+@mixin content-width($max-width: 1440px) {
+    max-width: $max-width;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: $space-l;
+    padding-left: $space-l;
+    min-width: 0;
+}
+
+@mixin absolute-center($axis) {
+    position: absolute;
+
+    @if ($axis == 'x') {
+        transform: translate3d(-50%,0,0);
+        left: 50%;
+    }
+    @else if($axis == 'y') {
+        transform: translate3d(0, -50%, 0);
+        top: 50%;
+    }
+    @else {
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+    }
+}
+
+@mixin aspect-ratio($percentage: 56.25%) {
+    position: relative;
+    &:before {
+        position: relative;
+        content: '';
+        display: block;
+        padding-top: $percentage;
+        width: 100%;
+    }
+    /* Position child absolutely */
+}
+
+@mixin ui-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+        display: inline-block;
+    }
+}
+
+@mixin animate-prop($args...) {
+    transition-property: $args;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+}
+
+@mixin image-reset {
+    max-width: 100%;
+    display: inline-block;
+    margin: 0 0 0 0;
+}
+
+/* for accessibilty purposes */
+@mixin visually-hidden {
+    margin: -1px;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip: rect(0, 0, 0, 0);
+    position: absolute;
+}
+
+@mixin unstyled-link {
+    color: inherit;
+    text-decoration: inherit;
+    cursor: inherit;
+    &:active,
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin word-wrap() {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+@mixin ellipsis() {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@mixin boxes($bColor:$white, $color:$black, $border:1px solid $color-grey-light, $padding:20px) {
+    margin-bottom: $space-l;
+    position: relative;
+    color: $color;
+
+    @if ($padding == $space-m) {
+        padding: $space-m;
+
+        @media (min-width: 900px) {
+            padding: $space-xl;
+        }
+    } @else {
+        padding: $padding;
+    }
+
+    @if ($bColor) {
+        background-color: $bColor;
+    }
+
+    @if ($border) {
+        border: $border;
+    }
+}
+
+/// Mixin to place items on a circle
+/// @author Hugo Giraudel
+/// @author Ana Tudor
+/// @param {Integer} $item-count - Number of items on the circle
+/// @param {Length} $circle-size - Large circle size
+/// @param {Length} $item-size - Single item size
+@mixin circle-arrangement($item-count, $circle-size, $item-size, $item) {
+    position: relative;
+    width:  $circle-size;
+    height: $circle-size;
+    padding: 0;
+    border-radius: 50%;
+    list-style: none;
+
+    > .#{$item} {
+        display: block;
+        position: absolute;
+        top:  50%;
+        left: 50%;
+        width:  $item-size;
+        height: $item-size;
+        margin: -($item-size / 2);
+
+        $angle: (360 / $item-count);
+        $rot: 0;
+
+        @for $i from 1 through $item-count {
+            &:nth-of-type(#{$i}) {
+                transform:
+                    rotate($rot * 1deg)
+                    translate($circle-size / 2)
+                    rotate($rot * -1deg);
+            }
+
+            $rot: $rot + $angle;
+        }
+    }
+}
+
+@mixin triangle($dir, $size, $color) {
+    $size1: $size * 1px;
+    width: 0;
+    @if $dir==up {
+        // border-top: $size1 solid $color;
+        border-right: $size1 solid transparent;
+        border-bottom: $size1 solid $color;
+        border-left: $size1 solid transparent;
+    }
+    @if $dir==right {
+        border-top: $size1 solid transparent;
+        // border-right: $size1 solid transparent;
+        border-bottom: $size1 solid  transparent;
+        border-left: $size1 solid $color;
+    }
+    @if $dir==down {
+        border-top: $size1 solid $color;
+        border-right: $size1 solid transparent;
+        // border-bottom: $size1 solid $color;
+        border-left: $size1 solid transparent;
+    }
+    @if $dir==left {
+        border-top: $size1 solid transparent;
+        border-right: $size1 solid $color;
+        border-bottom: $size1 solid transparent;
+        // border-left: $size1 solid transparent;
+    }
+    font-size: 0;
+    line-height: 0;
+}
+
+@mixin box($bColor:$white, $color:$black, $border:2px solid #e8e8e8) {
+    margin-bottom: $space-l;
+    padding: $space-m;
+    position: relative;
+    overflow: auto;
+    color: $color;
+
+    @if ($bColor) {
+        background-color: $bColor;
+    }
+
+    @if ($border) {
+        border: $border;
+    }
+
+    @media (min-width:900px) {
+        padding: $space-xl;
+    }
+}
+
+@mixin underline($color: $white, $height: 3px) {
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+        transition: {
+            property: left, right;
+            duration: .2s;
+            timing-function: ease-in-out;
+        };
+        content: '';
+        position: absolute;
+        left: 51%;
+        right: 51%;
+        bottom: -2px;
+        background-color: $color;
+        height: $height;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+
+        &:after {
+            left: 0;
+            right: 0;
+        }
+    }
+}
+
+@mixin responsiveClasses($className, $prop, $propVal) {
+    $index: 1;
+    @each $bp in $breakpoints {
+        $key: nth($bp, 1);
+        $value: nth($bp, 2);
+
+        $classWithBreakpoint: $className + '-' + $key;
+        $class: $classWithBreakpoint;
+
+        @if $index != 1 {
+            @for $i from 1 through $index - 1{
+                $class: $class + '.' + $classWithBreakpoint;
+            }
+        }
+
+        @media (min-width: $value) {
+            .#{$class} {
+                #{$prop} : $propVal !important;
+            }
+        }
+        $index: $index + 1;
+    }
+}
+
+@mixin button-styles() {
+    @include font-heavy;
+    display: inline-block;
+    padding: $space-xxs $space-m;
+    text-decoration: none;
+    margin-right: $space-xxs;
+    margin-bottom: $base-spacing-unit;
+    transition: {
+        property: background-color, color, transform, box-shadow;
+        duration: .2s, .2s, .2s, .2s;
+        timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    }
+    text-transform: uppercase;
+}
+
+@mixin main-button-text() {
+    @include font-size(16px, 24px);
+
+    @media (min-width: $m_bp) {
+        @include font-size(20px, 30px);
+    }
+}
+
+@mixin button-block-height() {
+    height: $button-block-height-mobile;
+
+    @media (min-width: $m_bp) {
+        height: $button-block-height-desktop;
+    }
+}
+
+@mixin outer-shadow() {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21);
+}
+
+@mixin outer-shadow-tight() {
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.21);
+}
+
+@mixin aspect-ratio($width, $height) {
+    position: relative;
+
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+}
+
+@mixin main-body-text() {
+    @include font-size(14px, 22px);
+
+    @media (min-width: $m_bp) {
+        @include font-size(16px, 26px);
+    }
+}
+
+@mixin title-text() {
+    margin-bottom: $space-xl;
+    @include font-size(30px, 38px);
+
+    @media (min-width: $m_bp) {
+        margin-bottom: $space-xxl;
+        @include font-size(44px, 56px);
+    }
+}
+
+@mixin subtitle-text() {
+    margin-bottom: $space-l;
+    @include font-size(24px, 31px);
+
+    @media (min-width: $m_bp) {
+        margin-bottom: $space-xl;
+        @include font-size(36px, 46px);
+    }
+}
+
+@mixin section-title-text() {
+    margin-bottom: $space-s;
+    @include font-size(22px, 29px);
+
+    @media (min-width: $m_bp) {
+        @include font-size(28px, 40px);
+    }
+}
+
+// tab/section title all caps
+@mixin section-title-secondary() {
+    @include font-size(16px, 24px);
+    @include font-heavy;
+    text-transform: uppercase;
+
+    @media (min-width: $m_bp) {
+        @include font-size(20px, 30px);
+    }
+}
+
+@mixin section-intro-text() {
+    margin-bottom: $space-s;
+    @include font-size(18px, 26px);
+
+    @media (min-width: $m_bp) {
+        @include font-size(24px, 28px);
+    }
+}
+
+@mixin list-item-title() {
+    @include font-size(16px, 24px);
+    @include font-heavy;
+    margin-bottom: $space-xxs;
+
+    @media (min-width: $m_bp) {
+        @include font-size(20px, 28px);
+    }
+}
+
+@mixin list-item-text() {
+    @include font-size(16px, 24px);
+    margin-bottom: $space-xxs;
+
+    @media (min-width: $m_bp) {
+        @include font-size(20px, 28px);
+    }
+}
+
+@mixin footnote-text() {
+    @include font-size(12px, 12px);
+
+    @media (min-width: $m_bp) {
+        @include font-size(14px, 14px);
+    }
+}
+
+// section labels and breadcrumbs
+@mixin meta-info-text() {
+    @include font-size(12px, 16px);
+
+    @media (min-width: $m_bp) {
+        @include font-heavy();
+        @include font-size(16px, 26px);
+    }
+}
+
+// navigation text mixins
+@mixin navigation-link-text() {
+    @include reset-link-styles;
+    @include font-size(20px, 26px);
+    @include font-medium;
+}
+
+@mixin sub-nav-link-text() {
+    @include reset-link-styles;
+    @include font-size(16px, 20px);
+    @include font-medium;
+}
+
+@mixin bottom-nav-link-text() {
+    @include reset-link-styles;
+    @include font-size(10px, 13px);
+}
+
+@mixin reset-link-styles() {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*------------------------------------*\
+    Animation Mixins
+\*------------------------------------*/
+
+@mixin animate-const-rotate() {
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    animation: rotate 1.5s linear infinite;
+}
+
+@mixin animate-pulse () {
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+    animation: pulse 0.8s ease-in-out infinite;
+}

@@ -1,0 +1,109 @@
+.c-main-nav {
+    $class: c-main-nav;
+
+    transition: opacity .15s ease-in-out .1s, z-index .15s ease-in-out .15s, visibility .15s ease-in-out .15s;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    background-color: transparentize($color-2, .1);
+    z-index: -1;
+
+    &--list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+    }
+
+        &--list-item {
+            margin: 0;
+            display: block;
+            overflow: hidden;
+        }
+
+        &--first {
+
+        }
+
+        &--last {
+            padding-right: 0;
+        }
+
+            &--link {
+                display: block;
+                padding-bottom: $space-l;
+                position: relative;
+                color: $white;
+                text-decoration: none;
+
+                &:active {
+
+                }
+
+                &:before {
+                    content: '';
+                    width: 1px;
+                    height: $space-s;
+                    transform: translate(-2px, 100%);
+                    transition: transform .25s ease-in-out;
+                    position: absolute;
+                    left: 50%;
+                    bottom: 0;
+                    background-color: $white;
+                }
+            }
+
+    // sub nav /////////////////////
+    &--drop-down {
+
+    }
+
+    .is-selected .#{$class}--link,
+    &--link:hover {
+        &:before {
+            transform: translate(-2px);
+        }
+    }
+
+    .is-path-selected {
+
+    }
+
+    &.is-shown {
+        transition: opacity .15s ease-in-out .1s;
+        opacity: 1;
+        visibility: visible;
+        z-index: 10;
+    }
+
+    @media (min-width: $m-bp) {
+        max-width: none;
+        width: 66.66%;
+        height: auto;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 30px;
+        position: relative;
+        top: auto;
+        left: auto;
+        visibility: visible;
+        opacity: 1;
+        z-index: auto;
+        background-color: transparent;
+
+        &--list-item {
+            margin-right: $space-xs;
+            display: inline-block;
+        }
+
+            &--link {
+                padding-bottom: 24px;
+            }
+    }
+}
