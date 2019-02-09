@@ -251,15 +251,6 @@
 
 @include responsiveClasses(u-text-align-left, text-align, left);
 
-.u-children-text-align-left-m {
-    @media (min-width: $m_bp) {
-        text-align: left;
-
-        h1, h2, h3, h4, h5, h6, p, a {
-            text-align: left;
-        }
-    }
-}
 
 /* -- Font Weights ------------------ */
 

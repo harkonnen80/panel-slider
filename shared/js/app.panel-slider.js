@@ -11,12 +11,12 @@ function PanelSlider(element, config) {
     this.lastPanel = this.panels[this.panels.length - 1];
     this.numberOfPanels = this.panels.length;
     this.nav = document.querySelectorAll('[data-controls="' + this.slider.dataset.nav + '"]');
-    this.startingHash = null;
-    this.navControls = this.nav[0].getElementsByClassName('js-slide-to-panel');
+    this.navControls = null;
+    this.nextButton = null;
+    this.previousButton = null;
+    this.noNav = true;
     this.animationTime = 350;
     this.animationTimeMs = this.animationTime / 1000;
-    this.nextButton = this.nav[0].getElementsByClassName('js-slide-to-next')[0];
-    this.previousButton = this.nav[0].getElementsByClassName('js-slide-to-previous')[0];
     this.firstLoad = true;
     this.backBtnCall = true;
     this.previousPanelNumber = null;
@@ -36,11 +36,20 @@ function PanelSlider(element, config) {
 PanelSlider.prototype.init = function () {
     this.currentPanelHash = Object.prototype.getUrlVars(window.location.href)[this.options.hashDescriptor];
 
+    if (this.nav.length >= 1) {
+        this.navControls = this.nav[0].getElementsByClassName('js-slide-to-panel');
+        this.nextButton = this.nav[0].getElementsByClassName('js-slide-to-next')[0];
+        this.previousButton = this.nav[0].getElementsByClassName('js-slide-to-previous')[0];
+        this.noNav = false;
+    }
+
     this.setup();
     this.getPanelNumber();
     this.panelDimensions();
     this.slide();
-    this.buttonFunctions();
+    if (!this.noNav) {
+        this.buttonFunctions();
+    }
     this.windowResize();
     this.windowPop();
 };
@@ -102,7 +111,9 @@ PanelSlider.prototype.slide = function () {
     if (_this.firstLoad) {
         _this.panelTray.classList.add('no-transition');
 
-        _this.toggleActive(_this.currentPanelHash);
+        if (!_this.noNav) {
+            _this.toggleActive(_this.currentPanelHash);
+        }
 
         setTimeout(function () {
             _this.panelTray.classList.remove('no-transition');
@@ -130,14 +141,19 @@ PanelSlider.prototype.slide = function () {
         _this.slider.addEventListener('transitionend', heightAuto);
     }, 10);
 
-    if (!_this.options.looping) {
+    if (!_this.options.looping && !_this.noNav) {
         _this.nextButton.disabled = false;
+        _this.nextButton.classList.remove('is-disabled');
+
         _this.previousButton.disabled = false;
+        _this.previousButton.classList.remove('is-disabled');
 
         if (_this.currentPanelNum === (_this.numberOfPanels - 1)) {
             _this.nextButton.disabled = true;
+            _this.nextButton.classList.add('is-disabled');
         } else if (_this.currentPanelNum === 0) {
             _this.previousButton.disabled = true;
+            _this.previousButton.classList.add('is-disabled');
         }
     }
 
@@ -370,6 +386,9 @@ PanelSlider.prototype.windowPop = function () {
 
         _this.getPanelNumber();
         _this.slide();
-        _this.toggleActive();
+
+        if (!_this.noNav) {
+            _this.toggleActive();
+        }
     });
 };

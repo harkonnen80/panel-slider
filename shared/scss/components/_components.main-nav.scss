@@ -64,6 +64,14 @@
 
     }
 
+    .is-selected .#{$class}--link {
+        color: $color-1;
+
+        &:before {
+            background-color: $color-1;
+        }
+    }
+
     .is-selected .#{$class}--link,
     &--link:hover {
         &:before {

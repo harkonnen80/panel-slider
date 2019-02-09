@@ -43,13 +43,13 @@
             background-image: url('../img/arrow-right.svg');
         }
 
-        &:hover {
-            background-color: $black-light;
-        }
-
-        &:disabled {
+        &.is-disabled {
             background-color: $color-grey-mid;
             border-color: $color-grey-mid;
+        }
+
+        &:hover {
+            background-color: $black-light;
         }
 
         &:last-child {
