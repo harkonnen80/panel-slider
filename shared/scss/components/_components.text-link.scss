@@ -1,0 +1,57 @@
+
+.c-text-link {
+    $text-link-transition-speed: .2s;
+    $class: c-text-link;
+
+    /* TODO RFC - remove unneeded styles below */
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    line-height: inherit;
+    color: $black;
+    font-size: inherit;
+    float: none;
+    background: transparent;
+    text-transform: none;
+    vertical-align: inherit;
+    /* END */
+
+    transition: color $text-link-transition-speed ease-in-out;
+    display: inline;
+    font-weight: 600;
+    //text-decoration: underline;
+    //text-decoration-skip: ink;
+
+    &:hover {
+        color: $color-1;
+        background: transparent; /* TODO RFC - overide button css */
+    }
+
+    &.is-active {
+        color: $color-1;
+        text-decoration: underline;
+        text-decoration-skip: ink;
+    }
+
+    &--display-block {
+        display: block;
+    }
+
+    &--color-1 {
+        color: $color-1;
+
+        &:hover,
+        &.is-active {
+            color: $color-1-dark;
+        }
+    }
+
+    &--upper {
+        text-transform: uppercase;
+    }
+
+    &--hover-white:hover {
+        color: $white;
+    }
+}

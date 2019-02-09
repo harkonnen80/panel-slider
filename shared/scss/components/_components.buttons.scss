@@ -1,0 +1,545 @@
+/*------------------------------------*\
+    buttons
+\*------------------------------------*/
+@mixin base-button-styles {
+    @include button-styles;
+    @include main-button-text;
+
+    //&[class*="u-before-icon"] {
+    //    &:before {
+    //        margin-right: $space-xxs;
+    //    }
+    //}
+    //
+    //&[class*="u-after-icon"] {
+    //    &:after {
+    //        margin-left: $space-xxs;
+    //    }
+    //}
+
+    &--full-width {
+        width: 100%;
+        max-width: none;
+        display: block;
+    }
+
+    //&--icon-down {
+    //    &:after {
+    //        @include ffrees-icons-font;
+    //        content: $icon-angle-down;
+    //        display: inline-block;
+    //        margin-left: $space-xxs;
+    //    }
+    //}
+
+    &--float-right {
+        float:right;
+        margin-right: 0;
+    }
+
+    &--small-header {
+        padding: $space-xxs $space-s;
+        @include font-size(14px, 1.5);
+    }
+
+    &--margin-left-s {
+        margin-left: $space-s;
+    }
+
+    &--margin-right-s {
+        margin-right: $space-s;
+    }
+
+    &--margin-bottom-s {
+        margin-bottom: $space-s;
+    }
+
+    &--margin-right-xs {
+        margin-right: $space-xs;
+    }
+
+    &--margin-0 {
+        margin: 0;
+    }
+
+    &--margin-right-0 {
+        margin-right: 0;
+    }
+
+    &--margin-bottom-0 {
+        margin-bottom: 0;
+    }
+
+    &--nowrap {
+        white-space: nowrap;
+    }
+
+    &--text-align-left {
+        text-align: left;
+    }
+
+    //&--icon-only {
+    //    &[class*="u-before-icon"] {
+    //        &:before {
+    //            margin-right: 0;
+    //        }
+    //    }
+    //    &[class*="u-after-icon"] {
+    //        &:after {
+    //            margin-left: 0;
+    //        }
+    //    }
+    //}
+
+    &--plus-minus-icon {
+        $padding: $space-m;
+        position: relative;
+
+        &:before,
+        &:after {
+            position: absolute;
+            content: '';
+            background-color: currentColor;
+            display: block;
+        }
+
+        &:before {
+            width: 15px;
+            height: 3px;
+            top: calc(50% - 1px);
+            right: $padding;
+        }
+
+        &:after {
+            width: 3px;
+            height: 15px;
+            top: calc(50% - 7px);
+            right: $padding + 6px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        &.is-active {
+            &:after {
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    &.is-disabled {
+        opacity: .4;
+        cursor: not-allowed;
+    }
+
+    // extra spcificty to overwrite color
+    &.c-btn--black-text {
+        color: $black;
+
+        &:hover,
+        &:focus {
+            color: $black;
+        }
+    }
+
+    @media (max-width:540px) {
+        &--mobile-full-width {
+            width: 100%;
+            max-width: none;
+            display: block;
+        }
+    }
+
+    @media (min-width:540px) {
+        &--margin-bottom-0-xs {
+            margin-bottom: 0;
+        }
+    }
+
+    @media (min-width: $s_bp) {
+        &--wide {
+            padding-left: $space-xxxxl;
+            padding-right: $space-xxxxl;
+        }
+    }
+
+    @media (min-width: $m_bp) {
+        &--wide {
+            padding-left: $space-xxxxl * 1.5;
+            padding-right: $space-xxxxl * 1.5;
+        }
+    }
+}
+
+.c-btn {
+    @include base-button-styles;
+    color: $white;
+    background: $color-1;
+
+    &:hover,
+    &:focus {
+        color: $white;
+        background: $color-1-dark;
+    }
+
+    &--2 {
+        color: $white;
+        background: $color-2;
+
+        &:hover,
+        &:focus {
+            color: $white;
+            background: $color-2-dark;
+        }
+    }
+
+    &--3 {
+        color: $white;
+        background: $color-3;
+
+        &:hover,
+        &:focus {
+            color: $white;
+            background: $color-3-dark;
+        }
+    }
+
+    &--4 {
+        color: $white;
+        background: $color-4;
+
+        &:hover,
+        &:focus {
+            color: $white;
+            background: $color-4-dark;
+        }
+    }
+
+    &--white {
+        color: $black;
+        background: $white;
+
+        &:hover,
+        &:focus {
+            color: $black;
+            background: $white-dark;
+        }
+    }
+
+    &--black {
+        color: $white;
+        background: $black;
+
+        &:hover,
+        &:focus {
+            color: $white;
+            background: $black-light;
+        }
+    }
+
+    &--xxlight {
+        color: $black;
+        background: $color-grey-xxlight;
+
+        &:hover,
+        &:focus {
+            color: $black;
+            background: $color-grey-light;
+        }
+    }
+
+    &--raised {
+        @include outer-shadow-tight;
+    }
+}
+
+.c-btn-outline {
+    @include base-button-styles;
+    color: $color-1;
+    background: none;
+    box-shadow: inset 0 0 0 4px currentColor;
+
+    &:hover,
+    &:focus {
+        color: $color-1;
+        background: rgba($color-1, .3);
+    }
+
+    &--2 {
+        color: $color-2;
+        box-shadow: inset 0 0 0 4px currentColor;
+
+        &:hover,
+        &:focus {
+            color: $color-2;
+            background: rgba($color-2, .3);
+        }
+    }
+
+    &--3 {
+        color: $color-3;
+        box-shadow: inset 0 0 0 4px currentColor;
+
+        &:hover,
+        &:focus {
+            color: $color-3;
+            background: rgba($color-3, .3);
+        }
+    }
+
+    &--4 {
+        color: $color-4;
+        box-shadow: inset 0 0 0 4px currentColor;
+
+        &:hover,
+        &:focus {
+            color: $color-4;
+            background: rgba($color-4, .3);
+        }
+    }
+
+    &--black {
+        color: $black;
+        box-shadow: inset 0 0 0 4px currentColor;
+
+        &:hover,
+        &:focus {
+            color: $black;
+            background: rgba($black, .3);
+        }
+    }
+
+    &--white {
+        color: $white;
+        box-shadow: inset 0 0 0 4px currentColor;
+
+        &:hover,
+        &:focus {
+            color: $white;
+            background: rgba($white, .3);
+        }
+    }
+}
+
+.c-btn-small-square {
+    @include base-button-styles;
+    padding: 0;
+    color: $color-1;
+    background: none;
+
+    &:before {
+        width: 44px;
+        height: 44px;
+        margin: 0 auto;
+        font-size: 44px;
+        line-height: 44px;
+        display: block !important;
+        color: $white;
+        background-color: $color-1;
+        box-shadow: 2px 1px 4px transparentize($black, .8);
+    }
+
+    &:hover,
+    &:focus {
+        color: $color-1-dark;
+        background: none;
+
+        &:before {
+            background-color: $color-1-dark;
+        }
+    }
+
+    &--2 {
+        color: $color-2;
+
+        &:before {
+            color: $white;
+            background-color: $color-2;
+        }
+
+        &:hover,
+        &:focus {
+            color: $color-2-dark;
+
+            &:before {
+                background: $color-2-dark;
+            }
+        }
+    }
+
+    &--3 {
+        color: $color-3;
+
+        &:before {
+            color: $white;
+            background-color: $color-3;
+        }
+
+        &:hover,
+        &:focus {
+            color: $color-3-dark;
+
+            &:before {
+                background: $color-3-dark;
+            }
+        }
+    }
+
+    &--4 {
+        color: $color-4;
+
+        &:before {
+            color: $white;
+            background-color: $color-4;
+        }
+
+        &:hover,
+        &:focus {
+            color: $color-4-dark;
+
+            &:before {
+                background: $color-4-dark;
+            }
+        }
+    }
+
+    &--white {
+        color: $white;
+
+        &:before {
+            color: $black;
+            background-color: $white;
+        }
+
+        &:hover,
+        &:focus {
+            color: $white;
+
+            &:before {
+                background: $color-1;
+            }
+        }
+    }
+
+    &--black {
+        color: $black;
+
+        &:before {
+            color: $white;
+            background-color: $black;
+        }
+
+        &:hover,
+        &:focus {
+            color: $color-1;
+
+            &:before {
+                background: $color-1;
+            }
+        }
+    }
+
+    &--position-fixed-right-top {
+        margin: 0;
+        position: fixed;
+        top: $space-l;
+        right: $space-xs;
+    }
+
+    &--position-fixed-right-bottom {
+        margin: 0;
+        position: fixed;
+        right: $space-xs;
+        bottom: $space-l;
+    }
+
+    @media (min-width: $m_bp) {
+        right: $space-l;
+    }
+}
+
+.c-btn-small-round {
+    $class: c-btn-small-round;
+
+    @include base-button-styles;
+    @include outer-shadow;
+    @include aspect-ratio(1, 1);
+    width: 44px;
+    background-color: $white;
+    border-radius: 50%;
+    padding: 0;
+
+    &:hover,
+    &:focus {
+        background-color: $color-1-light;
+    }
+
+    &__content {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: $black;
+        text-transform: none;
+        @include main-body-text;
+
+        &:before,
+        &:after {
+            @include main-body-text;
+        }
+    }
+
+    &--large {
+        padding: 0;
+        width: 54px;
+    }
+}
+
+.c-btn-block {
+    $class: c-btn-block;
+
+    @include base-button-styles;
+    @include button-block-height;
+    color: $black;
+    background-color: $white;
+    @include outer-shadow;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    &:hover,
+    &:focus {
+        color: $black;
+        background-color: $color-1-light;
+    }
+
+    &[class*="u-before-icon"] {
+        &:before {
+            margin-right: $space-xs;
+        }
+    }
+
+    &[class*="u-after-icon"] {
+        &:after {
+            margin-left: $space-xs;
+        }
+    }
+
+    &__subtext {
+        display: none;
+        color: $color-1;
+        @include font-medium;
+        text-transform: none;
+        @include main-body-text;
+    }
+
+    &--with-subtext {
+        .#{$class}__subtext {
+            display: block;
+        }
+    }
+
+    &--full-width {
+        display: flex;
+    }
+}

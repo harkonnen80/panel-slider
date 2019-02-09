@@ -584,38 +584,6 @@
 }
 
 /*------------------------------------*\
-    Icons Utilities
-\*------------------------------------*/
-
-@each $icon in $icons {
-    $key: nth($icon, 1);
-    $value: nth($icon, 2);
-
-    // for old use of u-icon-[name]
-    .u-#{$key} {
-        &:before {
-            content: $value;
-            @include icons-font;
-            display: inline-block;
-        }
-    }
-    .u-before-#{$key} {
-        &:before {
-            content: $value;
-            @include icons-font;
-            display: inline-block;
-        }
-    }
-    .u-after-#{$key} {
-        &:after {
-            content: $value;
-            @include icons-font;
-            display: inline-block;
-        }
-    }
-}
-
-/*------------------------------------*\
     Color utilities
 \*------------------------------------*/
 

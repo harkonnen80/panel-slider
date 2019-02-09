@@ -96,6 +96,11 @@
         opacity: 1;
         z-index: auto;
         background-color: transparent;
+        float: right;
+
+        &--list {
+            float: right;
+        }
 
         &--list-item {
             margin-right: $space-xs;

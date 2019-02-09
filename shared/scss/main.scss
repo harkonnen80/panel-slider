@@ -37,9 +37,10 @@
 /*------------------------------------*\
     Components
 \*------------------------------------*/
+@import "components/components.buttons";
 @import "components/components.header";
 @import "components/components.main-nav";
-@import "components/components.panel-slider";
+@import "components/components.sliding-panels";
 
 /*------------------------------------*\
     Utilities & Fallbacks

@@ -8,28 +8,6 @@ $base-line-height:  1.5;
 
 $body-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-// Icon Variables (most used)
-$icon-arrow-down: '\e801';
-$icon-arrow-left: '\e803';
-$icon-arrow-right: '\e804';
-$icon-location: '\e800';
-$icon-phone: '\e805';
-$icon-mail: '\e806';
-$icon-facebook: '\e809';
-$icon-twitter: '\e80a';
-
-//Icons object used to generate utility classes
-$icons:
-icon-arrow-down '\e801',
-icon-arrow-left '\e803',
-icon-arrow-right '\e804',
-icon-location '\e800',
-icon-phone '\e805',
-icon-mail '\e806'
-icon-facebook '\e809',
-icon-twitter '\e80a';
-
-
 /*------------------------------------*\
     Spacing variables
 \*------------------------------------*/
@@ -65,14 +43,20 @@ $base-spacing-unit: $space-s;
 // $color-1-light:  lighten($color-1, 39.5%); //orange
 
 //Default colors
-$color-1: #f7971c;
+$color-1: #8B7053;
 $color-1-dark: darken($color-1, 30);
+$color-1-light: lighten($color-1, 30);
 $color-2: #005a9c;
-$color-3: #6d6e71;
+$color-2-dark: darken($color-2, 30);
+$color-3: rgb(255, 249, 232);
+$color-3-dark: darken($color-3, 30);
 $color-4: #aeaeb0;
+$color-4-dark: darken($color-4, 30);
 
 $white: #FFFFFF;
+$white-dark: darken($white, 30);
 $black: #000000;
+$black-light: lighten($black, 30);
 
 
 // greys

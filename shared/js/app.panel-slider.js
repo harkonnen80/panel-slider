@@ -11,12 +11,12 @@ function PanelSlider(element, config) {
     this.lastPanel = this.panels[this.panels.length - 1];
     this.numberOfPanels = this.panels.length;
     this.nav = document.querySelectorAll('[data-controls="' + this.slider.dataset.nav + '"]');
-    this.hashDescriptor = 'current-panel';
-    this.currentPanelHash = $.getUrlVars(window.location.href)[this.hashDescriptor];
     this.startingHash = null;
     this.navControls = this.nav[0].getElementsByClassName('js-slide-to-panel');
     this.animationTime = 350;
     this.animationTimeMs = this.animationTime / 1000;
+    this.nextButton = this.nav[0].getElementsByClassName('js-slide-to-next')[0];
+    this.previousButton = this.nav[0].getElementsByClassName('js-slide-to-previous')[0];
     this.firstLoad = true;
     this.backBtnCall = true;
     this.previousPanelNumber = null;
@@ -26,13 +26,16 @@ function PanelSlider(element, config) {
     this.cloneTranslate = null;
     this.optionsDefault = {
         hashUrl: true,
-        repeating: false,
+        looping: false,
+        hashDescriptor: 'current-panel'
     };
 
     this.options = Object.assign({}, this.optionsDefault, config);
 }
 
 PanelSlider.prototype.init = function () {
+    this.currentPanelHash = Object.prototype.getUrlVars(window.location.href)[this.options.hashDescriptor];
+
     this.setup();
     this.getPanelNumber();
     this.panelDimensions();
@@ -65,7 +68,7 @@ PanelSlider.prototype.setup = function () {
         transitionDuration: _this.animationTimeMs + 's',
     });
 
-    if (_this.options.repeating) {
+    if (_this.options.looping) {
         firstPanelClone.innerHTML = '';
         firstPanelClone.classList.add('is-clone');
         firstPanelClone.dataset.panel += '-clone';
@@ -84,14 +87,12 @@ PanelSlider.prototype.setup = function () {
 
         _this.panelTray.insertBefore(lastPanelClone, _this.panelTray.firstChild);
     }
-
-    // _this.panelTray.prepend(lastPanelClone)
 };
 
 PanelSlider.prototype.slide = function () {
-    var _this         = this;
-    var translate     = _this.getTranslate() + 'px';
-    var translateSum  = _this.sliderWidth * _this.numberOfPanels;
+    var _this = this;
+    var translate = _this.getTranslate() + 'px';
+    var translateSum = _this.sliderWidth * _this.numberOfPanels;
     var heightAuto = function (event) {
         event.stopPropagation();
 
@@ -129,6 +130,17 @@ PanelSlider.prototype.slide = function () {
         _this.slider.addEventListener('transitionend', heightAuto);
     }, 10);
 
+    if (!_this.options.looping) {
+        _this.nextButton.disabled = false;
+        _this.previousButton.disabled = false;
+
+        if (_this.currentPanelNum === (_this.numberOfPanels - 1)) {
+            _this.nextButton.disabled = true;
+        } else if (_this.currentPanelNum === 0) {
+            _this.previousButton.disabled = true;
+        }
+    }
+
     if (_this.clone) {
         switch (_this.clone) {
             case 'last':
@@ -160,6 +172,7 @@ PanelSlider.prototype.buttonFunctions = function () {
 
             _this.currentPanelHash = this.dataset.slideToPanel;
             _this.break = false;
+            _this.thisButton = this[0];
 
             _this.getPanelNumber();
             _this.slide();
@@ -179,7 +192,11 @@ PanelSlider.prototype.panelDimensions = function () {
 PanelSlider.prototype.getPanelNumber = function () {
     var _this = this;
 
-    if (_this.currentPanelNum) _this.previousPanelNumber = _this.currentPanelNum;
+    if (_this.currentPanelNum === 0) {
+        _this.previousPanelNumber = 0
+    } else if (_this.currentPanelNum) {
+        _this.previousPanelNumber = _this.currentPanelNum;
+    }
 
     Array.prototype.some.call(_this.panels, function (panel, index) {
         var oldPanelNumber = _this.previousPanelNumber;
@@ -190,6 +207,7 @@ PanelSlider.prototype.getPanelNumber = function () {
             switch (_this.currentPanelHash) {
                 case panel.dataset.panel:
                     _this.currentPanelNum = index;
+
                     difference = Math.abs(oldPanelNumber - _this.currentPanelNum);
                     animationDifference = (_this.animationTime * difference) / 1000;
 
@@ -293,7 +311,7 @@ PanelSlider.prototype.updateUriHash = function () {
     var _this = this;
     var options = {
         uri: window.location.href,
-        key: _this.hashDescriptor,
+        key: _this.options.hashDescriptor,
         value: _this.currentPanelHash,
     };
     var uriUpdate = updateUrlParameter(options);
@@ -348,7 +366,7 @@ PanelSlider.prototype.windowPop = function () {
 
     window.addEventListener('popstate', function () {
         _this.backBtnCall = true;
-        _this.currentPanelHash = $.getUrlVars(window.location.href)[_this.hashDescriptor];
+        _this.currentPanelHash = Object.prototype.getUrlVars(window.location.href)[_this.options.hashDescriptor];
 
         _this.getPanelNumber();
         _this.slide();
